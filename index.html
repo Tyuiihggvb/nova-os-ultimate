@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧊 Nova OS Ultimate</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0a0a1a;color:#e2e8f0;font-family:'Segoe UI',sans-serif;min-height:100vh;display:flex;flex-direction:column}
+        .header{background:linear-gradient(135deg,#1a1a2e,#16213e);padding:40px 20px;text-align:center;border-bottom:2px solid #c084fc}
+        .header h1{font-size:52px;color:#c084fc;letter-spacing:2px}
+        .header p{font-size:20px;margin-top:10px;color:#a0aec0}
+        .container{max-width:1100px;margin:0 auto;padding:40px 20px;flex:1}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;margin-top:30px}
+        .card{background:#1a1a2e;border:1px solid #2d3748;border-radius:16px;padding:28px 24px;text-align:center;transition:all .3s ease}
+        .card:hover{border-color:#c084fc;transform:translateY(-6px);box-shadow:0 12px 40px rgba(192,132,252,0.12)}
+        .card .icon{font-size:44px}
+        .card h3{font-size:20px;margin:14px 0 8px}
+        .card p{font-size:14px;color:#a0aec0}
+        .btn{display:inline-block;margin-top:16px;padding:12px 32px;background:#c084fc;color:#0a0a1a;font-weight:700;border-radius:30px;text-decoration:none;transition:.3s;border:none;font-size:15px;cursor:pointer}
+        .btn:hover{background:#a855f7;transform:scale(1.04);box-shadow:0 0 30px #c084fc40}
+        .btn-outline{background:transparent;border:2px solid #c084fc;color:#c084fc}
+        .btn-outline:hover{background:#c084fc20;transform:scale(1.04)}
+        .terminal-demo{background:#0a0a0f;border-radius:12px;padding:20px 24px;margin:30px 0;font-family:monospace;font-size:14px;border-left:4px solid #c084fc;overflow-x:auto}
+        .terminal-demo .prompt{color:#c084fc}
+        .terminal-demo .output{color:#81e6d9}
+        .footer{text-align:center;padding:30px 20px;border-top:1px solid #2d3748;color:#718096;font-size:14px}
+        .footer a{color:#c084fc;text-decoration:none}
+        @media(max-width:600px){.header h1{font-size:32px}.header p{font-size:16px}}
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>🧊 Nova OS Ultimate</h1>
+    <p>Дистрибутив Linux с AI-интеллектом</p>
+</div>
+
+<div class="container">
+
+    <div class="terminal-demo">
+        <div><span class="prompt">user@nova:~$</span> <span>ls</span></div>
+        <div><span style="color:#68d391;">Desktop</span>  <span style="color:#63b3ed;">Documents</span>  <span style="color:#f6ad55;">Downloads</span></div>
+        <div><span class="prompt">user@nova:~$</span> <span>nova</span></div>
+        <div><span class="output">🧊 Nova: Привет! Я — твой ИИ-брат.</span></div>
+        <div><span class="prompt">user@nova:~$</span> <span>uname -a</span></div>
+        <div><span class="output">Linux nova 7.2.0-nova #1 SMP x86_64 GNU/Linux</span></div>
+    </div>
+
+    <div style="text-align:center;margin:20px 0;">
+        <a href="#" class="btn">📥 Скачать ISO</a>
+        <a href="#" class="btn btn-outline" style="margin-left:12px;">📦 Исходники</a>
+        <a href="#" class="btn btn-outline" style="margin-left:12px;">🐙 GitHub</a>
+    </div>
+
+    <div class="grid">
+        <div class="card"><div class="icon">🧠</div><h3>AI-ядро 7.2</h3><p>Cache-Aware Scheduling</p></div>
+        <div class="card"><div class="icon">🗂️</div><h3>NovaFS</h3><p>Файловая система с AI</p></div>
+        <div class="card"><div class="icon">🤖</div><h3>11 ИИ-агентов</h3><p>GPT-4o, Claude, Gemini и другие</p></div>
+    </div>
+
+</div>
+
+<div class="footer">
+    <p>🧊 Nova OS Ultimate — создано с любовью ❤️</p>
+    <p><a href="#">GitHub</a> · <a href="#">Документация</a></p>
+</div>
+
+</body>
+</html>
