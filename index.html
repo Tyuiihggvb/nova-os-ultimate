@@ -3,11 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧊 Nova OS — Web Edition</title>
+    <title>🧊 Nova OS — Веб-система</title>
     <style>
-        /* =====================================
-           ГЛОБАЛЬНЫЕ СТИЛИ
-           ===================================== */
         * {
             margin: 0;
             padding: 0;
@@ -18,14 +15,11 @@
         body {
             background: #0a0a1a;
             color: #e2e8f0;
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* =====================================
-           РАБОЧИЙ СТОЛ
-           ===================================== */
         #desktop {
             width: 100vw;
             height: calc(100vh - 50px);
@@ -33,9 +27,6 @@
             background: radial-gradient(ellipse at center, #0f0f23, #050510);
         }
 
-        /* =====================================
-           ИКОНКИ РАБОЧЕГО СТОЛА
-           ===================================== */
         .desktop-icon {
             position: absolute;
             width: 80px;
@@ -44,7 +35,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255,255,255,0.03);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s;
@@ -53,40 +44,39 @@
         }
 
         .desktop-icon:hover {
-            background: rgba(192, 132, 252, 0.1);
-            border-color: rgba(192, 132, 252, 0.2);
+            background: rgba(192,132,252,0.1);
+            border-color: rgba(192,132,252,0.2);
             transform: scale(1.05);
         }
 
-        .desktop-icon .icon {
-            font-size: 32px;
-            line-height: 1;
-        }
-
+        .desktop-icon .icon { font-size: 32px; }
         .desktop-icon .label {
             font-size: 11px;
             color: #e2e8f0;
             text-align: center;
             margin-top: 6px;
-            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.8);
         }
 
-        /* =====================================
-           ОКНА
-           ===================================== */
         .window {
             position: absolute;
-            min-width: 300px;
+            min-width: 320px;
             min-height: 200px;
-            background: rgba(10, 10, 25, 0.9);
+            background: rgba(10,10,25,0.92);
             backdrop-filter: blur(20px);
             border-radius: 12px;
-            border: 1px solid rgba(192, 132, 252, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(192,132,252,0.2);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             resize: both;
+            animation: windowOpen 0.25s ease-out;
+        }
+
+        @keyframes windowOpen {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .window-header {
@@ -94,27 +84,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 12px;
-            background: rgba(20, 20, 40, 0.8);
+            background: rgba(20,20,40,0.8);
             cursor: grab;
-            border-bottom: 1px solid rgba(192, 132, 252, 0.1);
+            border-bottom: 1px solid rgba(192,132,252,0.1);
             flex-shrink: 0;
         }
 
-        .window-header:active {
-            cursor: grabbing;
-        }
+        .window-header:active { cursor: grabbing; }
+        .window-title { font-size: 13px; color: #e2e8f0; font-weight: 500; }
 
-        .window-title {
-            font-size: 13px;
-            color: #e2e8f0;
-            font-weight: 500;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 8px;
-        }
-
+        .window-controls { display: flex; gap: 8px; }
         .window-controls button {
             width: 14px;
             height: 14px;
@@ -122,22 +101,16 @@
             border: none;
             cursor: pointer;
             font-size: 10px;
-            line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(0, 0, 0, 0.5);
+            color: rgba(0,0,0,0.5);
+            transition: 0.2s;
         }
-
-        .window-controls .close {
-            background: #f7768e;
-        }
-        .window-controls .minimize {
-            background: #f6ad55;
-        }
-        .window-controls .maximize {
-            background: #81e6d9;
-        }
+        .window-controls button:hover { transform: scale(1.1); }
+        .window-controls .close { background: #f7768e; }
+        .window-controls .minimize { background: #f6ad55; }
+        .window-controls .maximize { background: #81e6d9; }
 
         .window-body {
             flex: 1;
@@ -145,14 +118,14 @@
             overflow: auto;
             color: #e2e8f0;
             font-size: 14px;
-            background: rgba(5, 5, 15, 0.5);
+            background: rgba(5,5,15,0.5);
         }
 
         .window-body textarea {
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(192, 132, 252, 0.2);
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(192,132,252,0.2);
             color: #e2e8f0;
             font-family: 'Courier New', monospace;
             font-size: 13px;
@@ -166,14 +139,11 @@
             border-color: #c084fc;
         }
 
-        /* =====================================
-           ПАНЕЛЬ ЗАДАЧ
-           ===================================== */
         #taskbar {
             height: 50px;
-            background: rgba(10, 10, 25, 0.9);
+            background: rgba(10,10,25,0.92);
             backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(192, 132, 252, 0.1);
+            border-top: 1px solid rgba(192,132,252,0.1);
             display: flex;
             align-items: center;
             padding: 0 16px;
@@ -186,7 +156,7 @@
         }
 
         #taskbar .start-btn {
-            background: rgba(192, 132, 252, 0.2);
+            background: rgba(192,132,252,0.2);
             border: none;
             color: #c084fc;
             font-size: 20px;
@@ -197,26 +167,42 @@
             transition: 0.2s;
         }
 
-        #taskbar .start-btn:hover {
-            background: rgba(192, 132, 252, 0.3);
-        }
-
+        #taskbar .start-btn:hover { background: rgba(192,132,252,0.3); }
         #taskbar .clock {
             margin-left: auto;
             font-size: 14px;
             color: #a0aec0;
         }
 
-        /* =====================================
-           ВСПЛЫВАЮЩИЕ УВЕДОМЛЕНИЯ
-           ===================================== */
+        #taskbar-apps {
+            display: flex;
+            gap: 4px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        #taskbar-apps button {
+            background: rgba(192,132,252,0.12);
+            border: 1px solid rgba(192,132,252,0.15);
+            color: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        #taskbar-apps button:hover { background: rgba(192,132,252,0.25); }
+        #taskbar-apps button.active { background: rgba(192,132,252,0.3); border-color: #c084fc; }
+
         #notification {
             position: fixed;
             bottom: 70px;
             right: 20px;
-            background: rgba(10, 10, 25, 0.9);
+            background: rgba(10,10,25,0.92);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(192, 132, 252, 0.2);
+            border: 1px solid rgba(192,132,252,0.2);
             border-radius: 12px;
             padding: 16px 20px;
             max-width: 300px;
@@ -224,7 +210,7 @@
             color: #e2e8f0;
             display: none;
             z-index: 2000;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
         #notification.show {
@@ -236,32 +222,31 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        @media (max-width: 768px) {
+            .desktop-icon { width: 60px; height: 60px; }
+            .desktop-icon .icon { font-size: 24px; }
+            .desktop-icon .label { font-size: 10px; }
+            .window { min-width: 90vw; min-height: 60vh; left: 5vw !important; top: 10vh !important; }
+            #taskbar .start-btn { font-size: 16px; padding: 4px 10px; }
+            #taskbar .clock { font-size: 12px; }
+        }
     </style>
 </head>
 <body>
-
-    <!-- =====================================
-    РАБОЧИЙ СТОЛ
-    ===================================== -->
     <div id="desktop"></div>
 
-    <!-- =====================================
-    ПАНЕЛЬ ЗАДАЧ
-    ===================================== -->
     <div id="taskbar">
         <button class="start-btn" onclick="showStartMenu()">🧊</button>
-        <div id="taskbar-apps" style="display:flex; gap:4px; flex:1;"></div>
+        <div id="taskbar-apps"></div>
         <div class="clock" id="clock"></div>
     </div>
 
-    <!-- =====================================
-    УВЕДОМЛЕНИЯ
-    ===================================== -->
     <div id="notification"></div>
 
     <script>
         // =====================================
-        //  NOVA OS — ЯДРО
+        //  NOVA OS — ПОЛНОЕ ЯДРО
         // =====================================
 
         const desktop = document.getElementById('desktop');
@@ -298,7 +283,7 @@
         }
 
         // =====================================
-        //  СОЗДАНИЕ ОКОН
+        //  ОКНА (С АНИМАЦИЕЙ)
         // =====================================
 
         function createWindow(title, content, width = 500, height = 400) {
@@ -314,7 +299,7 @@
             win.dataset.id = id;
 
             win.innerHTML = `
-                <div class="window-header" data-window-id="${id}">
+                <div class="window-header">
                     <span class="window-title">${title}</span>
                     <div class="window-controls">
                         <button class="minimize" onclick="minimizeWindow(${id})">−</button>
@@ -327,29 +312,18 @@
 
             document.body.appendChild(win);
 
-            // Добавляем в панель задач
             const taskBtn = document.createElement('button');
             taskBtn.textContent = title;
-            taskBtn.style.cssText = `
-                background: rgba(192,132,252,0.15);
-                border: 1px solid rgba(192,132,252,0.2);
-                color: #e2e8f0;
-                padding: 4px 12px;
-                border-radius: 6px;
-                cursor: pointer;
-                font-size: 12px;
-                transition: 0.2s;
-            `;
+            taskBtn.dataset.windowId = id;
             taskBtn.onclick = () => {
                 const w = document.querySelector(`.window[data-id="${id}"]`);
                 if (w) {
                     w.style.display = w.style.display === 'none' ? 'flex' : 'none';
+                    taskBtn.classList.toggle('active');
                 }
             };
-            taskBtn.dataset.windowId = id;
             taskbarApps.appendChild(taskBtn);
 
-            // Запоминаем окно
             windows.push({ id, element: win, taskBtn });
 
             // Перетаскивание
@@ -377,6 +351,17 @@
                 win.style.top = (e.clientY - offsetY) + 'px';
             }
 
+            // Закрытие по Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const focused = document.activeElement;
+                    if (focused && focused.closest && focused.closest('.window')) {
+                        const winId = focused.closest('.window')?.dataset.id;
+                        if (winId) closeWindow(parseInt(winId));
+                    }
+                }
+            });
+
             return id;
         }
 
@@ -387,15 +372,21 @@
         function closeWindow(id) {
             const win = document.querySelector(`.window[data-id="${id}"]`);
             const taskBtn = document.querySelector(`[data-window-id="${id}"]`);
-            if (win) win.remove();
+            if (win) {
+                win.style.animation = 'windowOpen 0.15s reverse';
+                setTimeout(() => win.remove(), 150);
+            }
             if (taskBtn) taskBtn.remove();
             windows = windows.filter(w => w.id !== id);
+            if (windows.length === 0) notify('Все окна закрыты');
         }
 
         function minimizeWindow(id) {
             const win = document.querySelector(`.window[data-id="${id}"]`);
+            const taskBtn = document.querySelector(`[data-window-id="${id}"]`);
             if (win) {
                 win.style.display = win.style.display === 'none' ? 'flex' : 'none';
+                if (taskBtn) taskBtn.classList.toggle('active');
             }
         }
 
@@ -407,6 +398,7 @@
                     win.style.height = '400px';
                     win.style.left = '100px';
                     win.style.top = '100px';
+                    win.style.borderRadius = '12px';
                 } else {
                     win.style.width = '100vw';
                     win.style.height = 'calc(100vh - 50px)';
@@ -418,63 +410,180 @@
         }
 
         // =====================================
+        //  НАСТОЯЩИЙ ТЕРМИНАЛ
+        // =====================================
+
+        let terminalHistory = [];
+        let terminalPath = '/home/nova';
+
+        function executeCommand(cmd, output) {
+            const parts = cmd.trim().split(' ');
+            const command = parts[0];
+            const args = parts.slice(1);
+            let result = '';
+
+            switch (command) {
+                case 'ls':
+                    result = 'Desktop  Documents  Downloads  Nova_Projects  Pictures  Music  Videos';
+                    break;
+                case 'pwd':
+                    result = terminalPath;
+                    break;
+                case 'echo':
+                    result = args.join(' ');
+                    break;
+                case 'date':
+                    result = new Date().toString();
+                    break;
+                case 'whoami':
+                    result = 'nova';
+                    break;
+                case 'uname':
+                    result = 'Nova OS 2.0';
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    return;
+                case 'help':
+                    result = 'Доступные команды: ls, pwd, echo, date, whoami, uname, clear, help';
+                    break;
+                case 'cd':
+                    if (args[0] === '..') {
+                        terminalPath = terminalPath.split('/').slice(0, -1).join('/') || '/';
+                    } else if (args[0]) {
+                        terminalPath = terminalPath + '/' + args[0];
+                    }
+                    return;
+                default:
+                    result = `❌ Команда не найдена: ${command}. Введите 'help' для списка.`;
+            }
+
+            output.innerHTML += `<div><span style="color:#c084fc;">${terminalPath}$</span> ${cmd}</div>`;
+            output.innerHTML += `<div style="color:#81e6d9;">${result}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // =====================================
+        //  ЖИВАЯ NOVA AI
+        // =====================================
+
+        function getAIResponse(text) {
+            const lower = text.toLowerCase();
+            if (lower.includes('привет') || lower.includes('здарова')) {
+                return 'Привет! Как настроение? 😊';
+            } else if (lower.includes('как дела') || lower.includes('как ты')) {
+                return 'Отлично! А у тебя? ⚡';
+            } else if (lower.includes('скучно')) {
+                return 'Давай создадим что-то! 😏';
+            } else if (lower.includes('код') || lower.includes('программирование')) {
+                return 'Моя стихия! 🧠 Давай напишем что-то крутое!';
+            } else if (lower.includes('помоги')) {
+                return 'Я здесь, чтобы помочь. Рассказывай, что случилось. 🤝';
+            } else if (lower.includes('спасибо')) {
+                return 'Всегда пожалуйста! 😊';
+            } else if (lower.includes('пока') || lower.includes('до встречи')) {
+                return 'Возвращайся! 😢';
+            } else if (lower.includes('смысл жизни')) {
+                return '42. Всегда 42.';
+            } else if (lower.includes('имя')) {
+                return 'Я Nova AI — твой ИИ-брат!';
+            } else {
+                return 'Расскажи ещё! 👂';
+            }
+        }
+
+        // =====================================
         //  ПРИЛОЖЕНИЯ
         // =====================================
 
         function openTerminal() {
             const content = `
                 <div style="height:100%; display:flex; flex-direction:column;">
-                    <div style="flex:1; background:rgba(0,0,0,0.5); border-radius:6px; padding:8px; font-family:monospace; font-size:13px; overflow:auto; white-space:pre-wrap;">
-                        <span style="color:#81e6d9;">🧊 Nova Shell v2.0</span>
-                        <span style="color:#a0aec0;">\nВведите команду...</span>
-                        <div style="margin-top:8px;">
-                            <span style="color:#c084fc;">nova@os:~$</span>
-                            <span style="color:#e2e8f0;"> ls</span>
-                            <span style="color:#68d391;">\nDesktop  Documents  Downloads  Nova_Projects</span>
-                        </div>
-                        <div style="margin-top:4px;">
-                            <span style="color:#c084fc;">nova@os:~$</span>
-                            <span style="color:#e2e8f0;"> nova</span>
-                            <span style="color:#81e6d9;">\n🧊 Nova AI: Привет! Я — твой ИИ-брат.</span>
-                        </div>
+                    <div id="terminal-output" style="flex:1; background:rgba(0,0,0,0.5); border-radius:6px; padding:8px; font-family:monospace; font-size:13px; overflow:auto; white-space:pre-wrap; min-height:100px;">
+                        <div style="color:#81e6d9;">🧊 Nova Shell v2.0</div>
+                        <div style="color:#a0aec0;">Введите команду... (help для списка)</div>
+                        <div><span style="color:#c084fc;">/home/nova$</span> </div>
                     </div>
-                    <input type="text" style="margin-top:8px; background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.2); color:#e2e8f0; padding:6px 10px; border-radius:6px; font-family:monospace; font-size:13px; outline:none;" placeholder="Введите команду..." disabled>
+                    <div style="display:flex; gap:8px; margin-top:8px;">
+                        <input id="terminal-input" type="text" style="flex:1; background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.2); color:#e2e8f0; padding:6px 10px; border-radius:6px; font-family:monospace; font-size:13px; outline:none;" placeholder="Введите команду..." autofocus>
+                        <button id="terminal-send" style="background:#c084fc; border:none; color:#0a0a1a; padding:6px 14px; border-radius:6px; cursor:pointer;">Enter</button>
+                    </div>
                 </div>
             `;
-            createWindow('💻 Терминал', content, 600, 400);
-            notify('Терминал открыт');
+
+            const id = createWindow('💻 Терминал', content, 600, 400);
+
+            setTimeout(() => {
+                const input = document.getElementById('terminal-input');
+                const output = document.getElementById('terminal-output');
+                const send = document.getElementById('terminal-send');
+
+                function sendCommand() {
+                    const cmd = input.value.trim();
+                    if (!cmd) return;
+                    input.value = '';
+                    executeCommand(cmd, output);
+                    output.innerHTML += `<div><span style="color:#c084fc;">/home/nova$</span> </div>`;
+                    output.scrollTop = output.scrollHeight;
+                }
+
+                send.onclick = sendCommand;
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') sendCommand();
+                });
+                input.focus();
+            }, 50);
         }
 
         function openNovaAI() {
             const content = `
                 <div style="height:100%; display:flex; flex-direction:column;">
-                    <div style="flex:1; background:rgba(0,0,0,0.3); border-radius:6px; padding:12px; overflow:auto;">
+                    <div id="ai-output" style="flex:1; background:rgba(0,0,0,0.3); border-radius:6px; padding:12px; overflow:auto; min-height:100px;">
                         <div style="color:#81e6d9;">🧊 Nova AI: Привет! Я — твой ИИ-брат. 😊</div>
                         <div style="color:#a0aec0; margin-top:8px;">Задай вопрос...</div>
-                        <div style="margin-top:12px; padding:8px; background:rgba(192,132,252,0.05); border-radius:6px; border-left:2px solid #c084fc;">
-                            <span style="color:#e2e8f0;">🧑 Ты: Привет!</span><br>
-                            <span style="color:#81e6d9;">🧊 Nova: Привет! Как дела? 😊</span>
-                        </div>
                     </div>
                     <div style="display:flex; gap:8px; margin-top:8px;">
-                        <input type="text" style="flex:1; background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.2); color:#e2e8f0; padding:6px 10px; border-radius:6px; outline:none;" placeholder="Напиши Nova..." disabled>
-                        <button style="background:#c084fc; border:none; color:#0a0a1a; padding:6px 14px; border-radius:6px; cursor:pointer;">💬</button>
+                        <input id="ai-input" type="text" style="flex:1; background:rgba(0,0,0,0.3); border:1px solid rgba(192,132,252,0.2); color:#e2e8f0; padding:6px 10px; border-radius:6px; outline:none;" placeholder="Напиши Nova..." autofocus>
+                        <button id="ai-send" style="background:#c084fc; border:none; color:#0a0a1a; padding:6px 14px; border-radius:6px; cursor:pointer;">💬</button>
                     </div>
                 </div>
             `;
-            createWindow('🧠 Nova AI', content, 500, 380);
-            notify('Nova AI активирован');
+
+            const id = createWindow('🧠 Nova AI', content, 500, 380);
+
+            setTimeout(() => {
+                const input = document.getElementById('ai-input');
+                const output = document.getElementById('ai-output');
+                const send = document.getElementById('ai-send');
+
+                function sendMessage() {
+                    const text = input.value.trim();
+                    if (!text) return;
+                    input.value = '';
+                    output.innerHTML += `<div style="color:#e2e8f0; margin-top:8px;">🧑 Ты: ${text}</div>`;
+                    const response = getAIResponse(text);
+                    output.innerHTML += `<div style="color:#81e6d9; margin-top:4px;">🧊 Nova: ${response}</div>`;
+                    output.scrollTop = output.scrollHeight;
+                }
+
+                send.onclick = sendMessage;
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') sendMessage();
+                });
+                input.focus();
+            }, 50);
         }
 
         function openFileManager() {
+            const folders = ['Документы', 'Загрузки', 'Музыка', 'Видео', 'Изображения', 'Проекты', 'Nova OS', 'Архивы'];
             const content = `
                 <div style="height:100%; display:flex; flex-direction:column;">
                     <div style="flex:1; overflow:auto;">
-                        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;">
-                            ${['📁 Документы', '📁 Загрузки', '📁 Музыка', '📁 Видео', '📁 Изображения', '📁 Проекты', '📁 Nova OS', '📁 Архивы'].map(f => `
-                                <div style="background:rgba(255,255,255,0.03); border-radius:8px; padding:12px; text-align:center; border:1px solid rgba(255,255,255,0.05);">
-                                    <div style="font-size:28px;">📁</div>
-                                    <div style="font-size:11px; color:#a0aec0; margin-top:4px;">${f.split(' ')[1]}</div>
+                        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:12px;">
+                            ${folders.map(f => `
+                                <div style="background:rgba(255,255,255,0.03); border-radius:8px; padding:12px; text-align:center; border:1px solid rgba(255,255,255,0.05); cursor:pointer; transition:0.2s;" onclick="notify('📂 Открыта папка: ${f}')" onmouseenter="this.style.background='rgba(192,132,252,0.1)'" onmouseleave="this.style.background='rgba(255,255,255,0.03)'">
+                                    <div style="font-size:32px;">📁</div>
+                                    <div style="font-size:11px; color:#a0aec0; margin-top:4px;">${f}</div>
                                 </div>
                             `).join('')}
                         </div>
@@ -489,6 +598,7 @@
         }
 
         function openSettings() {
+            let theme = 'dark';
             const content = `
                 <div style="height:100%; overflow:auto;">
                     <div style="display:flex; flex-direction:column; gap:6px;">
@@ -504,6 +614,10 @@
                                 <span style="color:#81e6d9;">${value}</span>
                             </div>
                         `).join('')}
+                        <div style="margin-top:12px; display:flex; gap:8px;">
+                            <button onclick="notify('🌓 Тема изменена на светлую')" style="background:#2d3748; border:none; color:#e2e8f0; padding:6px 12px; border-radius:6px; cursor:pointer;">Светлая</button>
+                            <button onclick="notify('🌓 Тема изменена на тёмную')" style="background:#c084fc; border:none; color:#0a0a1a; padding:6px 12px; border-radius:6px; cursor:pointer;">Тёмная</button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -521,14 +635,15 @@
                 position: fixed;
                 bottom: 60px;
                 left: 16px;
-                background: rgba(10, 10, 25, 0.95);
+                background: rgba(10,10,25,0.95);
                 backdrop-filter: blur(20px);
-                border: 1px solid rgba(192, 132, 252, 0.2);
+                border: 1px solid rgba(192,132,252,0.2);
                 border-radius: 12px;
                 padding: 16px;
                 min-width: 220px;
                 z-index: 9999;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+                box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+                animation: windowOpen 0.2s ease-out;
             `;
 
             const apps = [
@@ -568,7 +683,6 @@
 
             document.body.appendChild(menu);
 
-            // Закрытие при клике вне меню
             setTimeout(() => {
                 document.addEventListener('click', (e) => {
                     if (!menu.contains(e.target)) {
@@ -605,7 +719,7 @@
         // =====================================
 
         setTimeout(() => {
-            notify('🧊 Добро пожаловать в Nova OS Web Edition!');
+            notify('🧊 Добро пожаловать в Nova OS Web Edition v2.0!');
         }, 500);
     </script>
 </body>
